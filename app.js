@@ -30,9 +30,13 @@ app.use((req,res,next)=>{
   next()
 })
 const corsOptions = {
-  origin:"https://habeshachat2023.web.app",
+  origin: [
+    "https://habeshachat2023.web.app",
+    "https://habeshachat2023.firebaseapp.com",
+  ],
   optionsSuccessStatus: 200,
 };
+
 app.use(cors(corsOptions));
 app.use(cookiParser());
 app.use(express.json())
