@@ -30,7 +30,7 @@ app.use((req,res,next)=>{
   next()
 })
 const corsOptions = {
-  origin: process.env.FRONTEND_URL,
+  origin:"https://habeshachat2023.web.app",
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
