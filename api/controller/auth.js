@@ -58,8 +58,11 @@ const login = async (req, res) => {
         .cookie("accessToken", token, {
           httpOnly: true,
         })
-        .status(200)
-        .json(others);
+        res.setHeader(
+          "Set-Cookie",
+          `accessToken=${token}; HttpOnly; Path=/; Secure; SameSite=None`
+        );
+        return res.status(200).json(others);
     }
   } catch (err) {
     return res.status(500).json("server error");
