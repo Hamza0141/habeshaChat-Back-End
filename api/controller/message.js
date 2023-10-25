@@ -34,6 +34,28 @@ WHERE (r1.followers_user_id = ? AND r1.followed_user_id = ?)
     return res.status(500).json("Internal Server Error");
   }
 };
+
+
+const singleMessage = (req, res) => {
+  try {
+    const token = req.cookies.accessToken;
+    if (!token) return res.status(401).json("not logged in");
+    jwt.verify(token, jwtSecreat, async (err, userInfo) => {
+      if (err) return res.status(401).json("Token is not valid");
+      const query1 = `SELECT m.message AS message_content, m.created_date AS message_time, u.id AS sender_id, u.name AS sender_name FROM message m JOIN users u ON m.followers_user_id = u.id WHERE m.followed_user_id = ? ORDER BY m.created_date DESC LIMIT 10`;
+      const [rows] = await pool.query(query1, [userInfo.id]);
+      if (!rows || rows.length === 0)
+        return res.status(500).json("No messages found");
+      console.log(rows);
+      return res.status(200).json(rows);
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json("Internal Server Error");
+  }
+};
+
+
 const addMessage = async (req, res) => {
   try {
     const token = req.cookies.accessToken;
@@ -55,5 +77,6 @@ const addMessage = async (req, res) => {
 };
 module.exports = {
   addMessage,
+  singleMessage,
   getmessage,
 };

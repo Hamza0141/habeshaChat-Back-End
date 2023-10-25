@@ -6,9 +6,8 @@ const getAllUnfriends = async (req, res) => {
   try {
     const currentUserID = req.params.currentUserID;
     console.log(currentUserID);
-
     const query1 = `SELECT DISTINCT u.id, u.user_name, u.email, u.name, u.cover_pic,u.created_date, u.profile_pic, u.city, u.website FROM users u LEFT JOIN relationShips r ON u.id = r.followed_user_id AND r.followers_user_id = ?
-WHERE u.id != ? AND r.followers_user_id IS NULL ORDER BY u.created_date DESC LIMIT 5`;
+WHERE u.id != ? AND r.followers_user_id IS NULL ORDER BY u.created_date DESC `;
 
     const [rows] = await pool.query(query1, [currentUserID, currentUserID]);
 
