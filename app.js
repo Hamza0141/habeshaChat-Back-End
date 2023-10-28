@@ -36,12 +36,9 @@ const corsOptions = {
   ],
   optionsSuccessStatus: 200,
 };
-
 app.use(cors(corsOptions));
 app.use(cookiParser());
 app.use(express.json())
-
-
 app.use(sanitize.middleware);
 app.use("/api/auth", authRoute);
 app.use("/api/posts", postRoute);
@@ -52,9 +49,8 @@ app.use("/api/relationships", relationships);
 app.use("/api/messages", messagesRoute);
 
 
-
 async function uploadImage(file, quantity) {
-  const storageFB = getStorage();
+const storageFB = getStorage();
 
   await signInWithEmailAndPassword(
     auth,
