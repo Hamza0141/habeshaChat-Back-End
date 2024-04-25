@@ -26,7 +26,6 @@ WHERE (r1.followers_user_id = ? AND r1.followed_user_id = ?)
       ]);
       if (!rows || rows.length === 0)
         return res.status(500).json("No messages found");
-      console.log(rows);
       return res.status(200).json(rows);
     });
   } catch (error) {
@@ -46,7 +45,6 @@ const singleMessage = (req, res) => {
       const [rows] = await pool.query(query1, [userInfo.id]);
       if (!rows || rows.length === 0)
         return res.status(500).json("No messages found");
-      console.log(rows);
       return res.status(200).json(rows);
     });
   } catch (error) {

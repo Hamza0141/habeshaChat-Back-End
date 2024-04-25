@@ -9,8 +9,6 @@ const register = async (req, res) => {
     const user_name = req.body.user_name;
     const query = `SELECT * FROM users WHERE user_name = ?`;
     const [row] = await pool.query(query, [user_name]);
-    console.log(row);
-  
     if (row.length > 0) {
       return res.status(400).json({ error: "user name already exist !" });
     } else {
@@ -25,7 +23,6 @@ const register = async (req, res) => {
         hashedPassword,
         req.body.name,
       ]);
-        console.log(row);
       return res.status(200).json("User has been created");
     }
   } catch (error) {
@@ -40,7 +37,6 @@ const login = async (req, res) => {
     const [row] = await pool.query(query, [req.body.user_name], (err) => {
       if (err) return res.status(500).json(err);
     });
-    console.log(row);
     if (row.length === 0) {
       return res.status(404).json("user not found!");
     } else {
@@ -53,7 +49,6 @@ const login = async (req, res) => {
       }
       const token = jwt.sign({ id: row[0].id }, jwtSecreat);
       const { password, ...others } = row[0];
-      console.log(others);
       res
         .cookie("accessToken", token, {
           httpOnly: true,

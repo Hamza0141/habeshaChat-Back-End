@@ -5,7 +5,6 @@ const jwtSecreat = process.env.JWT_SECRET;
 const getAllUnfriends = async (req, res) => {
   try {
     const currentUserID = req.params.currentUserID;
-    console.log(currentUserID);
     const query1 = `SELECT DISTINCT u.id, u.user_name, u.email, u.name, u.cover_pic,u.created_date, u.profile_pic, u.city, u.website FROM users u LEFT JOIN relationShips r ON u.id = r.followed_user_id AND r.followers_user_id = ?
 WHERE u.id != ? AND r.followers_user_id IS NULL ORDER BY u.created_date DESC `;
 
@@ -56,7 +55,6 @@ AND (r1.followed_user_id IS NOT NULL AND r2.followers_user_id IS NOT NULL)`;
 const getFollowers = async (req, res) => {
   try {
     const currentUserID = req.params.currentUserID;
-    console.log(currentUserID);
 
     const query = `SELECT u.id, u.user_name, u.email, u.name, u.cover_pic, u.profile_pic, u.city, u.website
 FROM users u
@@ -75,7 +73,6 @@ AND u.id NOT IN (
       currentUserID,
     ]);
 
-    console.log("Query Result:", rows); // Add this line for debugging
 
     if (!rows) return res.status(500).json(err);
 

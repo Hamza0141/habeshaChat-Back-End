@@ -1,14 +1,14 @@
 const mysql = require("mysql2/promise");
 require("dotenv").config();
 
-// const pool = mysql.createPool({
-//   password: process.env.DB_PASS,
-//   user: process.env.DB_USER,
-//   host: process.env.DB_HOST,
-//   database: process.env.DB_NAME,
-// });
+const pool = mysql.createPool({
+  password: process.env.DB_PASS,
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+});
 
-const pool = mysql.createPool(process.env.DATABASE_URL);
+// const pool = mysql.createPool(process.env.DATABASE_URL);
 
 const users = `CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,

@@ -117,7 +117,6 @@ const getStorePosts = async (req, res) => {
 
     return res.status(200).json(rows);
   } catch (error) {
-    console.log(error);
     return res.status(500).json("Internal Server Error");
   }
 };
@@ -139,7 +138,6 @@ const addPost = async (req, res) => {
         userInfo.id,
       ]);
       if (!row) return res.status(500).json(err);
-      console.log(row);
       return res.status(200).json(row);
     });
   } catch (error) {

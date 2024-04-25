@@ -8,7 +8,6 @@ const getComments = async (req, res) => {
     const query1 = `SELECT c.*, u.id AS userId,name, profile_pic FROM comments AS c JOIN users AS u ON (u.id = c.user_id) WHERE c.post_id=? ORDER BY c.created_date DESC`;
     const [row] = await pool.query(query1, [req.query.post_id]);
     if (!row) return res.status(500).json(err);
-    console.log(row);
     return res.status(200).json(row);
   } catch (error) {
     console.error(error);
@@ -30,7 +29,6 @@ const addComments =async(req,res)=>{
             req.body.post_id
           ]);
           if (!row) return res.status(500).json(err);
-          console.log(row);
           return res.status(200).json("comment created!");
         });
     

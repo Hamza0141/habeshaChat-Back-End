@@ -30,10 +30,7 @@ app.use((req,res,next)=>{
   next()
 })
 const corsOptions = {
-  origin: [
-    "https://habeshachat2023.web.app",
-    "https://habeshachat2023.firebaseapp.com",
-  ],
+  origin: "http://localhost:3000",
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
@@ -81,6 +78,7 @@ app.post("/api/upload", upload, async (req, res) => {
       status: "SUCCESS",
       imageName: buildImage,
     });
+    console.log(buildImage);
   } catch (err) {
     console.log(err);
   }

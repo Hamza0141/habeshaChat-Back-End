@@ -7,7 +7,6 @@ const getLikes = async (req, res) => {
     const query1 = `SELECT user_id from likes WHERE post_id =?`;
     const [row] = await pool.query(query1, [req.query.post_id]);
     if (!row) return res.status(500).json(err);
-    console.log(row);
     return res.status(200).json(row.map((like) => like.user_id));
   } catch (error) {
     console.error(error);
@@ -28,7 +27,6 @@ const addLike = async (req, res) => {
         req.body.post_id,
       ]);
       if (!row) return res.status(500).json(err);
-      console.log(row);
       return res.status(200).json("Post has been liked!");
     });
   } catch (error) {
@@ -46,7 +44,6 @@ const deleteLikes = async (req, res) => {
       const query1 = `DELETE FROM likes WHERE user_id = ? AND post_id = ?`;
       const [row] = await pool.query(query1, [userInfo.id, req.query.post_id]);
       if (!row) return res.status(500).json(err);
-      console.log(row);
       return res.status(200).json("Like has been removed!");
     });
   } catch (error) {
