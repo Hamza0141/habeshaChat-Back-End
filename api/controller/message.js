@@ -33,8 +33,6 @@ WHERE (r1.followers_user_id = ? AND r1.followed_user_id = ?)
     return res.status(500).json("Internal Server Error");
   }
 };
-
-
 const singleMessage = (req, res) => {
   try {
     const token = req.cookies.accessToken;
